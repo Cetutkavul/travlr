@@ -238,16 +238,6 @@ IT Software Support Specialist
 
 This also connects with my family’s IT background (my husband Burak’s experience in Active Directory, firewall management, and endpoint security), helping us grow together professionally.
 
-📁 Project Structure
-travlr-getaways/
-├── app_server/
-├── public/
-├── angular-admin/
-├── models/
-├── routes/
-├── package.json
-└── README.md
-
 📸 Screenshots (Add Later)
 
 You can add screenshots for your ePortfolio:
