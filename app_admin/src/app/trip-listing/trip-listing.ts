@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TripCard } from '../trip-card/trip-card';
+import { TripCard} from '../trip-card/trip-card';
 import { TripData } from '../services/trip-data';
 import { Trip } from '../models/trip';
 import { Router } from '@angular/router';

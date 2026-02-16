@@ -32,6 +32,7 @@ export class EditTrip implements OnInit {
 
   ngOnInit(): void {
 
+    // GET CODE FROM ROUTE
     this.tripCode = this.route.snapshot.paramMap.get('code') || '';
 
     this.editForm = this.fb.group({
@@ -48,36 +49,38 @@ export class EditTrip implements OnInit {
     this.loadTrip();
   }
 
-private loadTrip(): void {
-  this.tripService.getTrip(this.tripCode).subscribe({
-    next: (tripArray: Trip[]) => {
+  private loadTrip(): void {
 
-      if (tripArray.length === 0) {
+    this.tripService.getTrip(this.tripCode).subscribe({
+      next: (tripArray: Trip[]) => {
+
+        if (!tripArray || tripArray.length === 0) {
+          alert('Trip not found');
+          this.router.navigate(['']);
+          return;
+        }
+
+        const trip = tripArray[0];
+
+        const formattedTrip = {
+          ...trip,
+          start: trip.start
+            ? new Date(trip.start).toISOString().substring(0, 10)
+            : ''
+        };
+
+        this.editForm.patchValue(formattedTrip);
+      },
+      error: () => {
         alert('Trip not found');
         this.router.navigate(['']);
-        return;
       }
-
-      const trip = tripArray[0];
-
-      // ⭐ FIX DATE FORMAT
-      const formattedTrip = {
-        ...trip,
-        start: trip.start
-          ? new Date(trip.start).toISOString().substring(0, 10)
-          : ''
-      };
-
-      this.editForm.patchValue(formattedTrip);
-    },
-    error: err => console.error(err)
-  });
-}
+    });
+  }
 
   onSubmit(): void {
 
     this.submitted = true;
-
     if (this.editForm.invalid) return;
 
     this.tripService.updateTrip(this.tripCode, this.editForm.value)
